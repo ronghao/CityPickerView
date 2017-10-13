@@ -3,6 +3,7 @@ package com.haohaohu.citypickerview;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -45,6 +46,21 @@ public class CityPickerView extends LinearLayout {
 
     private ProvinceBean[] mProvinceBeenArray;
 
+    /**
+     * 第一次默认的显示省份，一般配合定位，使用
+     */
+    private String defaultProvinceName = "江苏";
+
+    /**
+     * 第一次默认得显示城市，一般配合定位，使用
+     */
+    private String defaultCityName = "常州";
+
+    /**
+     * 第一次默认得显示，一般配合定位，使用
+     */
+    private String defaultDistrict = "新北区";
+
     //选中
     private ProvinceBean mProvinceBean;
     private CityBean mCityBean;
@@ -66,15 +82,31 @@ public class CityPickerView extends LinearLayout {
     }
 
     private void initView() {
+        LayoutInflater.from(getContext()).inflate(R.layout.citypick_layout, this);
         mViewProvince = (WheelView) findViewById(R.id.id_province);
         mViewCity = (WheelView) findViewById(R.id.id_city);
         mViewDistrict = (WheelView) findViewById(R.id.id_district);
 
         mViewProvince.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
             public void onSelected(int selectedIndex, String item) {
+                updateCities();
+            }
+        });
+
+        mViewCity.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
+            public void onSelected(int selectedIndex, String item) {
+                updateAreas();
+            }
+        });
+
+        mViewDistrict.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
+            public void onSelected(int selectedIndex, String item) {
+                mDistrictBean = mCity_DisMap.get(mProvinceBean.getName()
+                        + mCityBean.getName())[mViewDistrict.getSeletedIndex()];
             }
         });
         initProvinceDatas(getContext());
+        setUpData();
     }
 
     public String getName() {
@@ -174,12 +206,37 @@ public class CityPickerView extends LinearLayout {
         }
     }
 
+    private void setUpData() {
+        int provinceDefault = -1;
+        if (!TextUtils.isEmpty(defaultProvinceName) && mProvinceBeenArray.length > 0) {
+            for (int i = 0; i < mProvinceBeenArray.length; i++) {
+                if (mProvinceBeenArray[i].getName().contains(defaultProvinceName)) {
+                    provinceDefault = i;
+                    break;
+                }
+            }
+        }
+
+        if (-1 != provinceDefault) {
+            mViewProvince.setSeletion(provinceDefault);
+        }
+
+        ArrayList<String> strings = new ArrayList<>();
+        for (int i = 0; i < mProvinceBeenArray.length; i++) {
+            strings.add(mProvinceBeenArray[i].getName());
+        }
+        mViewProvince.setItems(strings);
+
+        updateCities();
+        updateAreas();
+    }
+
     /**
      * 根据当前的省，更新市WheelView的信息
      */
     private void updateCities() {
         //省份滚轮滑动的当前位置
-        int pCurrent = mViewProvince.getCurrentItem();
+        int pCurrent = mViewProvince.getSeletedIndex();
         //省份选中的名称
         mProvinceBean = mProvinceBeenArray[pCurrent];
 
@@ -199,18 +256,18 @@ public class CityPickerView extends LinearLayout {
             }
         }
 
-        ArrayWheelAdapter cityWheel = new ArrayWheelAdapter<CityBean>(context, cities);
-        // 设置可见条目数量
-        cityWheel.setTextColor(textColor);
-        cityWheel.setTextSize(textSize);
-        mViewCity.setViewAdapter(cityWheel);
         if (-1 != cityDefault) {
-            mViewCity.setCurrentItem(cityDefault);
+            mViewCity.setSeletion(cityDefault);
         } else {
-            mViewCity.setCurrentItem(0);
+            mViewCity.setSeletion(0);
         }
 
-        cityWheel.setPadding(padding);
+        ArrayList<String> strings = new ArrayList<>();
+        for (int i = 0; i < cities.length; i++) {
+            strings.add(cities[i].getName());
+        }
+        mViewCity.setItems(strings);
+
         updateAreas();
     }
 
@@ -219,7 +276,7 @@ public class CityPickerView extends LinearLayout {
      */
     private void updateAreas() {
 
-        int pCurrent = mViewCity.getCurrentItem();
+        int pCurrent = mViewCity.getSeletedIndex();
 
         mCityBean = mPro_CityMap.get(mProvinceBean.getName())[pCurrent];
 
@@ -239,23 +296,22 @@ public class CityPickerView extends LinearLayout {
             }
         }
 
-        ArrayWheelAdapter districtWheel = new ArrayWheelAdapter<DistrictBean>(context, areas);
-        // 设置可见条目数量
-        districtWheel.setTextColor(textColor);
-        districtWheel.setTextSize(textSize);
-        mViewDistrict.setViewAdapter(districtWheel);
+        ArrayList<String> strings = new ArrayList<>();
+        for (int i = 0; i < areas.length; i++) {
+            strings.add(areas[i].getName());
+        }
+        mViewDistrict.setItems(strings);
 
         if (-1 != districtDefault) {
-            mViewDistrict.setCurrentItem(districtDefault);
+            mViewDistrict.setSeletion(districtDefault);
             //获取第一个区名称
             mDistrictBean =
                     mDisMap.get(mProvinceBean.getName() + mCityBean.getName() + defaultDistrict);
         } else {
-            mViewDistrict.setCurrentItem(0);
+            mViewDistrict.setSeletion(0);
             if (areas.length > 0) {
                 mDistrictBean = areas[0];
             }
         }
-        districtWheel.setPadding(padding);
     }
 }

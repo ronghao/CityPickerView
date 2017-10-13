@@ -163,6 +163,7 @@ public class WheelView extends ScrollView {
     private void initData() {
         displayItemCount = offset * 2 + 1;
 
+        views.removeAllViews();
         for (String item : items) {
             views.addView(createView(item));
         }
@@ -177,7 +178,7 @@ public class WheelView extends ScrollView {
         tv.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
         tv.setSingleLine(true);
-        tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         tv.setText(item);
         tv.setGravity(Gravity.CENTER);
         int padding = dip2px(15);
@@ -358,6 +359,17 @@ public class WheelView extends ScrollView {
     }
 
     public void setSeletion(int position) {
+        final int p = position;
+        selectedIndex = p + offset;
+        this.post(new Runnable() {
+            @Override
+            public void run() {
+                WheelView.this.scrollTo(0, p * itemHeight);
+            }
+        });
+    }
+
+    public void setSeletionSmooth(int position) {
         final int p = position;
         selectedIndex = p + offset;
         this.post(new Runnable() {
