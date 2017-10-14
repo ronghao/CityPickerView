@@ -14,6 +14,7 @@
 
 
 # 效果图
+![](image/screen.png)
 
 # 使用方法
 1.在根 build.gradle中添加
