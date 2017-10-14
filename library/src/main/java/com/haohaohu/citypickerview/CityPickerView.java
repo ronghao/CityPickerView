@@ -127,6 +127,13 @@ public class CityPickerView extends LinearLayout {
         return mDistrictBean.getName();
     }
 
+    public void setLoc(String provinceName, String cityName, String district) {
+        defaultProvinceName = provinceName;
+        defaultCityName = cityName;
+        defaultDistrict = district;
+        setUpData();
+    }
+
     protected void initProvinceDatas(Context context) {
 
         String cityJson = CityJsonReadUtil.getJson(context, "city_20170724.json");

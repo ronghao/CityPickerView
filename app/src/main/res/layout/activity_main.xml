@@ -7,7 +7,17 @@
     tools:context="com.haohaohu.citypickerviewsample.MainActivity"
     >
   <com.haohaohu.citypickerview.CityPickerView
+      android:id="@+id/citypickerview"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="150dp"
+      />
+
+  <TextView
+      android:id="@+id/citypickerview_btn"
+      android:layout_width="match_parent"
+      android:layout_height="20dp"
+      android:layout_below="@id/citypickerview"
+      android:gravity="center"
+      android:text="获取城市"
       />
 </RelativeLayout>
