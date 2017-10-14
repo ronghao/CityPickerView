@@ -51,17 +51,17 @@ public class CityPickerView extends LinearLayout {
     /**
      * 第一次默认的显示省份，一般配合定位，使用
      */
-    private String defaultProvinceName = "江苏";
+    private String defaultProvinceName = "北京";
 
     /**
      * 第一次默认得显示城市，一般配合定位，使用
      */
-    private String defaultCityName = "常州";
+    private String defaultCityName = "北京";
 
     /**
      * 第一次默认得显示，一般配合定位，使用
      */
-    private String defaultDistrict = "新北区";
+    private String defaultDistrict = "东城区";
 
     //选中
     private ProvinceBean mProvinceBean;
