@@ -220,7 +220,7 @@ public class CityPickerView extends LinearLayout {
         }
 
         if (-1 != provinceDefault) {
-            mViewProvince.setSeletion(provinceDefault);
+            mViewProvince.setSelected(provinceDefault);
         }
 
         ArrayList<String> strings = new ArrayList<>();
@@ -259,9 +259,9 @@ public class CityPickerView extends LinearLayout {
         }
 
         if (-1 != cityDefault) {
-            mViewCity.setSeletion(cityDefault);
+            mViewCity.setSelected(cityDefault);
         } else {
-            mViewCity.setSeletion(0);
+            mViewCity.setSelected(0);
         }
 
         ArrayList<String> strings = new ArrayList<>();
@@ -305,12 +305,12 @@ public class CityPickerView extends LinearLayout {
         mViewDistrict.setItems(strings);
 
         if (-1 != districtDefault) {
-            mViewDistrict.setSeletion(districtDefault);
+            mViewDistrict.setSelected(districtDefault);
             //获取第一个区名称
             mDistrictBean =
                     mDisMap.get(mProvinceBean.getName() + mCityBean.getName() + defaultDistrict);
         } else {
-            mViewDistrict.setSeletion(0);
+            mViewDistrict.setSelected(0);
             if (areas.length > 0) {
                 mDistrictBean = areas[0];
             }
