@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 城市选择View
+ *
  * @author haohao(ronghao3508@gmail.com) on 2017/10/13 下午 02:07
  * @version v1.0
  */

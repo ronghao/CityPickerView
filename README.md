@@ -1,16 +1,19 @@
 
 # [CityPickerView](https://github.com/ronghao/CityPickerView)  [![](https://jitpack.io/v/ronghao/CityPickerView.svg)](https://jitpack.io/#ronghao/CityPickerView) [![](https://travis-ci.org/ronghao/CityPickerView.svg?branch=master)](https://travis-ci.org/ronghao/CityPickerView) [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/ronghao/CityPickerView/master/LICENSE)
 
-> android缓存管理器，分为内存缓存和文件缓存两种；先取内存数据，没有再从文件缓存中获取
+> 仿IOS选择城市
 
 # 特点
-+ 仿IOS选择城市
++ 实现ios滚轮效果
++ 城市三级联动
+
+# 待完成
++ 循环滚动
+
+# 效果图
 
 # 使用方法
-    
-
-# 项目添加方法
-在根 build.gradle中添加
+1.在根 build.gradle中添加
 
     allprojects {
         repositories {
@@ -19,11 +22,14 @@
         }
     }
 
-在项目build.gradle中添加
+2.在项目build.gradle中添加 ，版本参考 ![](https://jitpack.io/v/ronghao/CityPickerView.svg)
 
     dependencies {
         compile 'com.github.ronghao:CityPickerView:1.0.0'
     }
+3.
+
+
 
 # 关于
 + 个人博客：[www.haohaohu.com](http://www.haohaohu.com/)
