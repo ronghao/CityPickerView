@@ -101,6 +101,7 @@ public class WheelView extends ScrollView {
     //初始化滚动停止时停靠效果
     private void initScrollTask() {
         scrollerTask = new Runnable() {
+            @Override
             public void run() {
                 int newY = getScrollY();
                 if (initialY - newY == 0) { // stopped

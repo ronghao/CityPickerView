@@ -90,18 +90,21 @@ public class CityPickerView extends LinearLayout {
         mViewDistrict = (WheelView) findViewById(R.id.id_district);
 
         mViewProvince.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
+            @Override
             public void onSelected(int selectedIndex, String item) {
                 updateCities();
             }
         });
 
         mViewCity.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
+            @Override
             public void onSelected(int selectedIndex, String item) {
                 updateAreas();
             }
         });
 
         mViewDistrict.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
+            @Override
             public void onSelected(int selectedIndex, String item) {
                 mDistrictBean = mCity_DisMap.get(mProvinceBean.getName()
                         + mCityBean.getName())[mViewDistrict.getSeletedIndex()];
